@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexora - Course Study Forum</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .post-card {
+            transition: all 0.2s ease;
+        }
+        .post-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-orange-50 to-red-100 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-black shadow-lg border-b-2 border-orange-600">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-r from-orange-500 to-red-600 rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold text-lg">📚</span>
+                    </div>
+                    <h1 class="text-2xl font-bold text-white">Nexora</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span id="userWelcome" class="text-gray-300 hidden">Welcome back!</span>
+                    <button id="loginBtn" class="bg-gradient-to-r from-orange-500 to-red-600 text-white px-4 py-2 rounded-lg hover:from-orange-600 hover:to-red-700 transition-colors">
+                        Login
+                    </button>
+                    <button id="logoutBtn" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors hidden">
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-6xl mx-auto px-4 py-8">
+        <!-- Login Modal -->
+        <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+            <div class="bg-white rounded-xl p-8 max-w-md w-full mx-4 fade-in">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Join Nexora</h2>
+                <form id="loginForm">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Your Name</label>
+                        <input type="text" id="userName" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500" placeholder="Enter your name" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Course/Subject</label>
+                        <input type="text" id="userCourse" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500" placeholder="e.g., Computer Science 101" required>
+                    </div>
+                    <div class="flex space-x-3">
+                        <button type="submit" class="flex-1 bg-gradient-to-r from-orange-500 to-red-600 text-white py-2 rounded-lg hover:from-orange-600 hover:to-red-700 transition-colors">
+                            Join Forum
+                        </button>
+                        <button type="button" id="cancelLogin" class="flex-1 bg-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-400 transition-colors">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Welcome Section -->
+        <div id="welcomeSection" class="text-center mb-8">
+            <h2 class="text-4xl font-bold text-gray-800 mb-4">Share Knowledge, Ace Your Exams! 🎓</h2>
+            <p class="text-xl text-gray-600 mb-6">Upload answers, share study materials, and help your coursemates succeed</p>
+            <div class="bg-white rounded-xl p-6 shadow-lg border border-orange-200">
+                <p class="text-gray-700 mb-4">Please login to start sharing and viewing study materials</p>
+                <button onclick="document.getElementById('loginBtn').click()" class="bg-gradient-to-r from-orange-500 to-red-600 text-white px-6 py-3 rounded-lg hover:from-orange-600 hover:to-red-700 transition-colors font-semibold">
+                    Get Started
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Forum Content -->
+        <div id="forumContent" class="hidden">
+            <!-- Create Post Section -->
+            <div class="bg-white rounded-xl shadow-lg p-6 mb-8 border border-orange-200">
+                <h3 class="text-xl font-bold text-gray-800 mb-4">📝 Share Your Answer</h3>
+                <form id="postForm">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Question/Topic</label>
+                        <input type="text" id="postTitle" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500" placeholder="What question are you answering?" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Your Answer</label>
+                        <textarea id="postContent" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500" placeholder="Share your detailed answer here..." required></textarea>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Upload Image (Optional)</label>
+                        <input type="file" id="postImage" accept="image/*" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500">
+                        <p class="text-sm text-gray-500 mt-1">Upload diagrams, screenshots, or handwritten solutions</p>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Subject Tag</label>
+                        <select id="postSubject" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500" required>
+                            <option value="">Select Subject</option>
+                            <option value="Mathematics">Mathematics</option>
+                            <option value="Physics">Physics</option>
+                            <option value="Chemistry">Chemistry</option>
+                            <option value="Computer Science">Computer Science</option>
+                            <option value="Biology">Biology</option>
+                            <option value="Engineering">Engineering</option>
+                            <option value="Business">Business</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="bg-gradient-to-r from-orange-500 to-red-600 text-white px-6 py-2 rounded-lg hover:from-orange-600 hover:to-red-700 transition-colors font-semibold">
+                        📤 Share Answer
+                    </button>
+                </form>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="bg-white rounded-xl shadow-lg p-4 mb-6 border border-orange-200">
+                <div class="flex flex-wrap items-center justify-between gap-4">
+                    <div class="flex items-center space-x-6">
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-orange-600" id="totalPosts">0</div>
+                            <div class="text-sm text-gray-600">Total Answers</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-red-600" id="activeUsers">0</div>
+                            <div class="text-sm text-gray-600">Contributors</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-black" id="yourPosts">0</div>
+                            <div class="text-sm text-gray-600">Your Answers</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2 text-green-600">
+                        <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                        <span class="text-sm font-semibold">Server Online</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter Section -->
+            <div class="bg-white rounded-xl shadow-lg p-4 mb-6 border border-orange-200">
+                <div class="flex flex-wrap items-center gap-4">
+                    <label class="font-semibold text-gray-700">Filter by Subject:</label>
+                    <select id="filterSubject" class="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500">
+                        <option value="">All Subjects</option>
+                        <option value="Mathematics">Mathematics</option>
+                        <option value="Physics">Physics</option>
+                        <option value="Chemistry">Chemistry</option>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Biology">Biology</option>
+                        <option value="Engineering">Engineering</option>
+                        <option value="Business">Business</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <input type="text" id="searchPosts" placeholder="Search questions..." class="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500 flex-1 min-w-64">
+                </div>
+            </div>
+
+            <!-- Posts Container -->
+            <div id="postsContainer" class="space-y-6">
+                <!-- Sample posts will be added here -->
+            </div>
+
+            <!-- No Posts Message -->
+            <div id="noPostsMessage" class="text-center py-12 hidden">
+                <div class="text-6xl mb-4">📚</div>
+                <h3 class="text-xl font-bold text-gray-600 mb-2">No study materials yet</h3>
+                <p class="text-gray-500">Be the first to share an answer and help your coursemates!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mini Server System - Centralized Data Management
+        class NexoraServer {
+            constructor() {
+                this.data = {
+                    users: [],
+                    posts: [],
+                    sessions: [],
+                    settings: {
+                        postIdCounter: 1,
+                        userIdCounter: 1,
+                        sessionIdCounter: 1
+                    }
+                };
+                this.loadFromStorage();
+            }
+
+            // User Management
+            registerUser(name, course) {
+                const existingUser = this.data.users.find(u => u.name.toLowerCase() === name.toLowerCase());
+                if (existingUser) {
+                    return { success: false, message: 'User already exists', user: existingUser };
+                }
+
+                const newUser = {
+                    id: this.data.settings.userIdCounter++,
+                    name,
+                    course,
+                    joinDate: new Date().toISOString(),
+                    postsCount: 0,
+                    likesReceived: 0,
+                    status: 'active'
+                };
+
+                this.data.users.push(newUser);
+                this.saveToStorage();
+                return { success: true, message: 'User registered successfully', user: newUser };
+            }
+
+            loginUser(name, course) {
+                let user = this.data.users.find(u => u.name.toLowerCase() === name.toLowerCase());
+                
+                if (!user) {
+                    const registerResult = this.registerUser(name, course);
+                    user = registerResult.user;
+                }
+
+                const session = {
+                    id: this.data.settings.sessionIdCounter++,
+                    userId: user.id,
+                    loginTime: new Date().toISOString(),
+                    active: true
+                };
+
+                this.data.sessions.push(session);
+                this.saveToStorage();
+                return { success: true, user, sessionId: session.id };
+            }
+
+            logoutUser(sessionId) {
+                const session = this.data.sessions.find(s => s.id === sessionId);
+                if (session) {
+                    session.active = false;
+                    session.logoutTime = new Date().toISOString();
+                    this.saveToStorage();
+                }
+                return { success: true };
+            }
+
+            // Post Management
+            createPost(authorName, title, content, subject, image = null) {
+                const author = this.data.users.find(u => u.name === authorName);
+                if (!author) {
+                    return { success: false, message: 'User not found' };
+                }
+
+                const newPost = {
+                    id: this.data.settings.postIdCounter++,
+                    title,
+                    content,
+                    author: author.name,
+                    authorId: author.id,
+                    course: author.course,
+                    subject,
+                    timestamp: new Date().toISOString(),
+                    image,
+                    likes: 0,
+                    likedBy: [],
+                    comments: [],
+                    status: 'active'
+                };
+
+                this.data.posts.unshift(newPost);
+                author.postsCount++;
+                this.saveToStorage();
+                return { success: true, post: newPost };
+            }
+
+            getPosts(filters = {}) {
+                let filteredPosts = this.data.posts.filter(post => post.status === 'active');
+
+                if (filters.subject) {
+                    filteredPosts = filteredPosts.filter(post => post.subject === filters.subject);
+                }
+
+                if (filters.search) {
+                    const searchTerm = filters.search.toLowerCase();
+                    filteredPosts = filteredPosts.filter(post => 
+                        post.title.toLowerCase().includes(searchTerm) ||
+                        post.content.toLowerCase().includes(searchTerm) ||
+                        post.author.toLowerCase().includes(searchTerm)
+                    );
+                }
+
+                return { success: true, posts: filteredPosts };
+            }
+
+            toggleLike(postId, userName) {
+                const post = this.data.posts.find(p => p.id === postId);
+                const user = this.data.users.find(u => u.name === userName);
+                
+                if (!post || !user) {
+                    return { success: false, message: 'Post or user not found' };
+                }
+
+                const userIndex = post.likedBy.indexOf(userName);
+                if (userIndex === -1) {
+                    post.likedBy.push(userName);
+                    post.likes++;
+                } else {
+                    post.likedBy.splice(userIndex, 1);
+                    post.likes--;
+                }
+
+                // Update author's likes received count
+                const author = this.data.users.find(u => u.id === post.authorId);
+                if (author) {
+                    author.likesReceived = this.data.posts
+                        .filter(p => p.authorId === author.id)
+                        .reduce((total, p) => total + p.likes, 0);
+                }
+
+                this.saveToStorage();
+                return { success: true, post };
+            }
+
+            // Statistics
+            getStats() {
+                const activeUsers = this.data.users.filter(u => u.status === 'active').length;
+                const totalPosts = this.data.posts.filter(p => p.status === 'active').length;
+                const activeSessions = this.data.sessions.filter(s => s.active).length;
+                const totalLikes = this.data.posts.reduce((total, post) => total + post.likes, 0);
+
+                return {
+                    activeUsers,
+                    totalPosts,
+                    activeSessions,
+                    totalLikes,
+                    subjects: this.getSubjectStats()
+                };
+            }
+
+            getSubjectStats() {
+                const subjects = {};
+                this.data.posts.forEach(post => {
+                    if (post.status === 'active') {
+                        subjects[post.subject] = (subjects[post.subject] || 0) + 1;
+                    }
+                });
+                return subjects;
+            }
+
+            getUserStats(userName) {
+                const user = this.data.users.find(u => u.name === userName);
+                if (!user) return null;
+
+                const userPosts = this.data.posts.filter(p => p.authorId === user.id && p.status === 'active');
+                return {
+                    postsCount: userPosts.length,
+                    likesReceived: user.likesReceived,
+                    joinDate: user.joinDate,
+                    subjects: [...new Set(userPosts.map(p => p.subject))]
+                };
+            }
+
+            // Data Persistence
+            saveToStorage() {
+                try {
+                    localStorage.setItem('nexoraServerData', JSON.stringify(this.data));
+                    console.log('✅ Server data saved successfully');
+                } catch (error) {
+                    console.error('❌ Failed to save server data:', error);
+                }
+            }
+
+            loadFromStorage() {
+                try {
+                    const savedData = localStorage.getItem('nexoraServerData');
+                    if (savedData) {
+                        this.data = JSON.parse(savedData);
+                        console.log('✅ Server data loaded successfully');
+                    } else {
+                        this.initializeSampleData();
+                    }
+                } catch (error) {
+                    console.error('❌ Failed to load server data:', error);
+                    this.initializeSampleData();
+                }
+            }
+
+            initializeSampleData() {
+                // Add sample users
+                this.registerUser('Study Helper', 'Mathematics 101');
+                this.registerUser('Physics Pro', 'Physics 201');
+
+                // Add sample posts
+                this.createPost('Study Helper', 
+                    'How to solve quadratic equations using the quadratic formula?',
+                    'The quadratic formula is x = (-b ± √(b²-4ac)) / 2a. Here\'s a step-by-step approach:\n\n1. Identify coefficients a, b, and c\n2. Calculate the discriminant (b²-4ac)\n3. Apply the formula\n4. Simplify the result\n\nExample: For x² + 5x + 6 = 0\na=1, b=5, c=6\nDiscriminant = 25-24 = 1\nx = (-5 ± 1)/2 = -2 or -3',
+                    'Mathematics'
+                );
+
+                this.createPost('Physics Pro',
+                    'Explain Newton\'s Second Law of Motion',
+                    'Newton\'s Second Law states that F = ma (Force = mass × acceleration)\n\nKey points:\n• Force is directly proportional to acceleration\n• Force is directly proportional to mass\n• If net force is zero, acceleration is zero\n• Units: Force in Newtons (N), mass in kg, acceleration in m/s²\n\nExample: A 10kg object with 20N force applied will have acceleration of 2 m/s²',
+                    'Physics'
+                );
+
+                // Add some likes to sample posts
+                this.toggleLike(1, 'Physics Pro');
+                this.toggleLike(2, 'Study Helper');
+
+                console.log('✅ Sample data initialized');
+            }
+
+            // Server Status
+            getServerStatus() {
+                return {
+                    status: 'online',
+                    uptime: Date.now(),
+                    version: '1.0.0',
+                    dataSize: JSON.stringify(this.data).length,
+                    lastSaved: new Date().toISOString()
+                };
+            }
+        }
+
+        // Initialize Mini Server
+        const server = new NexoraServer();
+        
+        // Application State
+        let currentUser = null;
+        let currentSession = null;
+
+        // DOM Elements
+        const loginModal = document.getElementById('loginModal');
+        const loginBtn = document.getElementById('loginBtn');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const loginForm = document.getElementById('loginForm');
+        const cancelLogin = document.getElementById('cancelLogin');
+        const welcomeSection = document.getElementById('welcomeSection');
+        const forumContent = document.getElementById('forumContent');
+        const userWelcome = document.getElementById('userWelcome');
+        const postForm = document.getElementById('postForm');
+        const postsContainer = document.getElementById('postsContainer');
+        const noPostsMessage = document.getElementById('noPostsMessage');
+        const filterSubject = document.getElementById('filterSubject');
+        const searchPosts = document.getElementById('searchPosts');
+
+        // Initialize app
+        function init() {
+            // Check if user session exists
+            const savedSession = localStorage.getItem('nexoraSession');
+            
+            if (savedSession) {
+                const sessionData = JSON.parse(savedSession);
+                const loginResult = server.loginUser(sessionData.userName, sessionData.userCourse);
+                if (loginResult.success) {
+                    currentUser = loginResult.user;
+                    currentSession = loginResult.sessionId;
+                    showForum();
+                }
+            }
+            
+            renderPosts();
+            
+            // Log server status
+            console.log('🚀 Nexora Server Status:', server.getServerStatus());
+        }
+
+        // Event Listeners
+        loginBtn.addEventListener('click', () => {
+            loginModal.classList.remove('hidden');
+        });
+
+        cancelLogin.addEventListener('click', () => {
+            loginModal.classList.add('hidden');
+        });
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('userName').value.trim();
+            const course = document.getElementById('userCourse').value.trim();
+            
+            if (name && course) {
+                const loginResult = server.loginUser(name, course);
+                
+                if (loginResult.success) {
+                    currentUser = loginResult.user;
+                    currentSession = loginResult.sessionId;
+                    
+                    // Save session for persistence
+                    localStorage.setItem('nexoraSession', JSON.stringify({
+                        userName: name,
+                        userCourse: course,
+                        sessionId: currentSession
+                    }));
+                    
+                    loginModal.classList.add('hidden');
+                    showForum();
+                    loginForm.reset();
+                    
+                    console.log('✅ User logged in:', currentUser.name);
+                }
+            }
+        });
+
+        logoutBtn.addEventListener('click', () => {
+            if (currentSession) {
+                server.logoutUser(currentSession);
+                console.log('✅ User logged out:', currentUser.name);
+            }
+            
+            currentUser = null;
+            currentSession = null;
+            localStorage.removeItem('nexoraSession');
+            showWelcome();
+        });
+
+        postForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            createPost();
+        });
+
+        filterSubject.addEventListener('change', renderPosts);
+        searchPosts.addEventListener('input', renderPosts);
+
+        // User management functions (now handled by server)
+        function getUserStats(userName) {
+            return server.getUserStats(userName);
+        }
+
+        // Show/Hide sections
+        function showWelcome() {
+            welcomeSection.classList.remove('hidden');
+            forumContent.classList.add('hidden');
+            loginBtn.classList.remove('hidden');
+            logoutBtn.classList.add('hidden');
+            userWelcome.classList.add('hidden');
+        }
+
+        function showForum() {
+            welcomeSection.classList.add('hidden');
+            forumContent.classList.remove('hidden');
+            loginBtn.classList.add('hidden');
+            logoutBtn.classList.remove('hidden');
+            userWelcome.classList.remove('hidden');
+            userWelcome.textContent = `Welcome, ${currentUser.name}!`;
+            renderPosts();
+        }
+
+        // Create new post
+        function createPost() {
+            const title = document.getElementById('postTitle').value.trim();
+            const content = document.getElementById('postContent').value.trim();
+            const subject = document.getElementById('postSubject').value;
+            const imageFile = document.getElementById('postImage').files[0];
+            
+            if (!title || !content || !subject || !currentUser) return;
+            
+            if (imageFile) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const result = server.createPost(currentUser.name, title, content, subject, e.target.result);
+                    if (result.success) {
+                        renderPosts();
+                        postForm.reset();
+                        console.log('✅ Post created with image:', result.post.title);
+                    }
+                };
+                reader.readAsDataURL(imageFile);
+            } else {
+                const result = server.createPost(currentUser.name, title, content, subject);
+                if (result.success) {
+                    renderPosts();
+                    postForm.reset();
+                    console.log('✅ Post created:', result.post.title);
+                }
+            }
+        }
+
+        // Update statistics display
+        function updateStats() {
+            const stats = server.getStats();
+            const totalPostsEl = document.getElementById('totalPosts');
+            const activeUsersEl = document.getElementById('activeUsers');
+            const yourPostsEl = document.getElementById('yourPosts');
+            
+            if (totalPostsEl) totalPostsEl.textContent = stats.totalPosts;
+            if (activeUsersEl) activeUsersEl.textContent = stats.activeUsers;
+            if (yourPostsEl && currentUser) {
+                const userStats = server.getUserStats(currentUser.name);
+                yourPostsEl.textContent = userStats ? userStats.postsCount : 0;
+            }
+        }
+
+        // Render posts
+        function renderPosts() {
+            updateStats();
+            
+            const filterValue = filterSubject.value;
+            const searchValue = searchPosts.value.toLowerCase();
+            
+            const postsResult = server.getPosts({
+                subject: filterValue,
+                search: searchValue
+            });
+            
+            if (!postsResult.success || postsResult.posts.length === 0) {
+                postsContainer.innerHTML = '';
+                noPostsMessage.classList.remove('hidden');
+                return;
+            }
+            
+            const filteredPosts = postsResult.posts;
+            noPostsMessage.classList.add('hidden');
+            
+            postsContainer.innerHTML = filteredPosts.map(post => `
+                <div class="post-card bg-white rounded-xl shadow-lg p-6 border border-gray-200">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold text-gray-800 mb-2">${escapeHtml(post.title)}</h3>
+                            <div class="flex items-center space-x-4 text-sm text-gray-600">
+                                <span class="flex items-center">
+                                    <span class="w-2 h-2 bg-orange-500 rounded-full mr-2"></span>
+                                    ${escapeHtml(post.author)}
+                                </span>
+                                <span>${escapeHtml(post.course)}</span>
+                                <span class="bg-${getSubjectColor(post.subject)}-100 text-${getSubjectColor(post.subject)}-800 px-2 py-1 rounded-full text-xs font-semibold">
+                                    ${escapeHtml(post.subject)}
+                                </span>
+                                <span>${formatDate(post.timestamp)}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <p class="text-gray-700 whitespace-pre-wrap leading-relaxed">${escapeHtml(post.content)}</p>
+                    </div>
+                    
+                    ${post.image ? `
+                        <div class="mb-4">
+                            <img src="${post.image}" alt="Study material" class="max-w-full h-auto rounded-lg border border-gray-200 shadow-sm">
+                        </div>
+                    ` : ''}
+                    
+                    <div class="flex items-center justify-between pt-4 border-t border-gray-200">
+                        <button onclick="toggleLike(${post.id})" class="flex items-center space-x-2 text-gray-600 hover:text-red-500 transition-colors">
+                            <span class="text-lg">${post.likedBy.includes(currentUser?.name) ? '❤️' : '🤍'}</span>
+                            <span class="font-semibold">${post.likes}</span>
+                            <span>Helpful</span>
+                        </button>
+                        <div class="flex items-center space-x-2 text-gray-500 text-sm">
+                            <span>📚</span>
+                            <span>Study Material</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Toggle like
+        function toggleLike(postId) {
+            if (!currentUser) return;
+            
+            const result = server.toggleLike(postId, currentUser.name);
+            if (result.success) {
+                renderPosts();
+                console.log('👍 Like toggled for post:', postId);
+            }
+        }
+
+        // Utility functions
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function formatDate(timestamp) {
+            const date = new Date(timestamp);
+            const now = new Date();
+            const diffMs = now - date;
+            const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+            const diffDays = Math.floor(diffHours / 24);
+            
+            if (diffHours < 1) return 'Just now';
+            if (diffHours < 24) return `${diffHours}h ago`;
+            if (diffDays < 7) return `${diffDays}d ago`;
+            return date.toLocaleDateString();
+        }
+
+        function getSubjectColor(subject) {
+            const colors = {
+                'Mathematics': 'blue',
+                'Physics': 'purple',
+                'Chemistry': 'green',
+                'Computer Science': 'indigo',
+                'Biology': 'emerald',
+                'Engineering': 'orange',
+                'Business': 'yellow',
+                'Other': 'gray'
+            };
+            return colors[subject] || 'gray';
+        }
+
+        // Data persistence is now handled by the server automatically
+
+        // Initialize the application
+        init();
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97b16479228747cf',t:'MTc1NzE5NzYzMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
