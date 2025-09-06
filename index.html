@@ -25,20 +25,20 @@
 <body class="bg-gradient-to-br from-orange-50 to-red-100 min-h-screen">
     <!-- Navigation -->
     <nav class="bg-black shadow-lg border-b-2 border-orange-600">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="flex justify-between items-center py-4">
-                <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 bg-gradient-to-r from-orange-500 to-red-600 rounded-lg flex items-center justify-center">
-                        <span class="text-white font-bold text-lg">📚</span>
+        <div class="max-w-6xl mx-auto px-2 sm:px-4">
+            <div class="flex justify-between items-center py-3 sm:py-4">
+                <div class="flex items-center space-x-2 sm:space-x-3">
+                    <div class="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-orange-500 to-red-600 rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold text-sm sm:text-lg">📚</span>
                     </div>
-                    <h1 class="text-2xl font-bold text-white">Nexora</h1>
+                    <h1 class="text-lg sm:text-2xl font-bold text-white">Nexora</h1>
                 </div>
-                <div class="flex items-center space-x-4">
-                    <span id="userWelcome" class="text-gray-300 hidden">Welcome back!</span>
-                    <button id="loginBtn" class="bg-gradient-to-r from-orange-500 to-red-600 text-white px-4 py-2 rounded-lg hover:from-orange-600 hover:to-red-700 transition-colors">
+                <div class="flex items-center space-x-2 sm:space-x-4">
+                    <span id="userWelcome" class="text-gray-300 hidden text-xs sm:text-sm">Welcome back!</span>
+                    <button id="loginBtn" class="bg-gradient-to-r from-orange-500 to-red-600 text-white px-2 py-1 sm:px-4 sm:py-2 rounded-lg hover:from-orange-600 hover:to-red-700 transition-colors text-sm sm:text-base">
                         Login
                     </button>
-                    <button id="logoutBtn" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors hidden">
+                    <button id="logoutBtn" class="bg-gray-700 text-white px-2 py-1 sm:px-4 sm:py-2 rounded-lg hover:bg-gray-800 transition-colors hidden text-sm sm:text-base">
                         Logout
                     </button>
                 </div>
@@ -47,11 +47,11 @@
     </nav>
 
     <!-- Main Content -->
-    <div class="max-w-6xl mx-auto px-4 py-8">
+    <div class="max-w-6xl mx-auto px-2 sm:px-4 lg:px-6 py-4 sm:py-6 lg:py-8">
         <!-- Login Modal -->
-        <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-            <div class="bg-white rounded-xl p-8 max-w-md w-full mx-4 fade-in">
-                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Join Nexora</h2>
+        <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden p-2 sm:p-4">
+            <div class="bg-white rounded-xl p-4 sm:p-6 lg:p-8 max-w-md w-full mx-2 sm:mx-4 fade-in">
+                <h2 class="text-xl sm:text-2xl font-bold text-gray-800 mb-4 sm:mb-6 text-center">Join Nexora</h2>
                 <form id="loginForm">
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2">Your Name</label>
@@ -74,12 +74,12 @@
         </div>
 
         <!-- Welcome Section -->
-        <div id="welcomeSection" class="text-center mb-8">
-            <h2 class="text-4xl font-bold text-gray-800 mb-4">Share Knowledge, Ace Your Exams! 🎓</h2>
-            <p class="text-xl text-gray-600 mb-6">Upload answers, share study materials, and help your coursemates succeed</p>
-            <div class="bg-white rounded-xl p-6 shadow-lg border border-orange-200">
-                <p class="text-gray-700 mb-4">Please login to start sharing and viewing study materials</p>
-                <button onclick="document.getElementById('loginBtn').click()" class="bg-gradient-to-r from-orange-500 to-red-600 text-white px-6 py-3 rounded-lg hover:from-orange-600 hover:to-red-700 transition-colors font-semibold">
+        <div id="welcomeSection" class="text-center mb-6 sm:mb-8">
+            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 mb-3 sm:mb-4 px-2">Share Knowledge, Ace Your Exams! 🎓</h2>
+            <p class="text-base sm:text-lg lg:text-xl text-gray-600 mb-4 sm:mb-6 px-2">Upload answers, share study materials, and help your coursemates succeed</p>
+            <div class="bg-white rounded-xl p-4 sm:p-6 shadow-lg border border-orange-200">
+                <p class="text-gray-700 mb-4 text-sm sm:text-base">Please login to start sharing and viewing study materials</p>
+                <button onclick="document.getElementById('loginBtn').click()" class="bg-gradient-to-r from-orange-500 to-red-600 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-lg hover:from-orange-600 hover:to-red-700 transition-colors font-semibold text-sm sm:text-base">
                     Get Started
                 </button>
             </div>
@@ -88,25 +88,25 @@
         <!-- Main Forum Content -->
         <div id="forumContent" class="hidden">
             <!-- Create Post Section -->
-            <div class="bg-white rounded-xl shadow-lg p-6 mb-8 border border-orange-200">
-                <h3 class="text-xl font-bold text-gray-800 mb-4">📝 Share Your Answer</h3>
+            <div class="bg-white rounded-xl shadow-lg p-4 sm:p-6 mb-6 sm:mb-8 border border-orange-200">
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-3 sm:mb-4">📝 Share Your Answer</h3>
                 <form id="postForm">
-                    <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2">Question/Topic</label>
-                        <input type="text" id="postTitle" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500" placeholder="What question are you answering?" required>
+                    <div class="mb-3 sm:mb-4">
+                        <label class="block text-gray-700 text-xs sm:text-sm font-bold mb-2">Question/Topic</label>
+                        <input type="text" id="postTitle" class="w-full px-2 sm:px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500 text-sm sm:text-base" placeholder="What question are you answering?" required>
                     </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2">Your Answer</label>
-                        <textarea id="postContent" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500" placeholder="Share your detailed answer here..." required></textarea>
+                    <div class="mb-3 sm:mb-4">
+                        <label class="block text-gray-700 text-xs sm:text-sm font-bold mb-2">Your Answer</label>
+                        <textarea id="postContent" rows="3" class="w-full px-2 sm:px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500 text-sm sm:text-base sm:rows-4" placeholder="Share your detailed answer here..." required></textarea>
                     </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2">Upload Image (Optional)</label>
-                        <input type="file" id="postImage" accept="image/*" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500">
-                        <p class="text-sm text-gray-500 mt-1">Upload diagrams, screenshots, or handwritten solutions</p>
+                    <div class="mb-3 sm:mb-4">
+                        <label class="block text-gray-700 text-xs sm:text-sm font-bold mb-2">Upload Image (Optional)</label>
+                        <input type="file" id="postImage" accept="image/*" class="w-full px-2 sm:px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500 text-xs sm:text-sm">
+                        <p class="text-xs sm:text-sm text-gray-500 mt-1">Upload diagrams, screenshots, or handwritten solutions</p>
                     </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2">Subject Tag</label>
-                        <select id="postSubject" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500" required>
+                    <div class="mb-4 sm:mb-6">
+                        <label class="block text-gray-700 text-xs sm:text-sm font-bold mb-2">Subject Tag</label>
+                        <select id="postSubject" class="w-full px-2 sm:px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500 text-sm sm:text-base" required>
                             <option value="">Select Subject</option>
                             <option value="Mathematics">Mathematics</option>
                             <option value="Physics">Physics</option>
@@ -118,41 +118,41 @@
                             <option value="Other">Other</option>
                         </select>
                     </div>
-                    <button type="submit" class="bg-gradient-to-r from-orange-500 to-red-600 text-white px-6 py-2 rounded-lg hover:from-orange-600 hover:to-red-700 transition-colors font-semibold">
+                    <button type="submit" class="w-full sm:w-auto bg-gradient-to-r from-orange-500 to-red-600 text-white px-4 py-2 sm:px-6 sm:py-2 rounded-lg hover:from-orange-600 hover:to-red-700 transition-colors font-semibold text-sm sm:text-base">
                         📤 Share Answer
                     </button>
                 </form>
             </div>
 
             <!-- Stats Section -->
-            <div class="bg-white rounded-xl shadow-lg p-4 mb-6 border border-orange-200">
-                <div class="flex flex-wrap items-center justify-between gap-4">
-                    <div class="flex items-center space-x-6">
+            <div class="bg-white rounded-xl shadow-lg p-3 sm:p-4 mb-4 sm:mb-6 border border-orange-200">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+                    <div class="flex items-center justify-center sm:justify-start space-x-4 sm:space-x-6">
                         <div class="text-center">
-                            <div class="text-2xl font-bold text-orange-600" id="totalPosts">0</div>
-                            <div class="text-sm text-gray-600">Total Answers</div>
+                            <div class="text-lg sm:text-2xl font-bold text-orange-600" id="totalPosts">0</div>
+                            <div class="text-xs sm:text-sm text-gray-600">Total Answers</div>
                         </div>
                         <div class="text-center">
-                            <div class="text-2xl font-bold text-red-600" id="activeUsers">0</div>
-                            <div class="text-sm text-gray-600">Contributors</div>
+                            <div class="text-lg sm:text-2xl font-bold text-red-600" id="activeUsers">0</div>
+                            <div class="text-xs sm:text-sm text-gray-600">Contributors</div>
                         </div>
                         <div class="text-center">
-                            <div class="text-2xl font-bold text-black" id="yourPosts">0</div>
-                            <div class="text-sm text-gray-600">Your Answers</div>
+                            <div class="text-lg sm:text-2xl font-bold text-black" id="yourPosts">0</div>
+                            <div class="text-xs sm:text-sm text-gray-600">Your Answers</div>
                         </div>
                     </div>
-                    <div class="flex items-center space-x-2 text-green-600">
+                    <div class="flex items-center justify-center sm:justify-end space-x-2 text-green-600">
                         <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                        <span class="text-sm font-semibold">Server Online</span>
+                        <span class="text-xs sm:text-sm font-semibold">Server Online</span>
                     </div>
                 </div>
             </div>
 
             <!-- Filter Section -->
-            <div class="bg-white rounded-xl shadow-lg p-4 mb-6 border border-orange-200">
-                <div class="flex flex-wrap items-center gap-4">
-                    <label class="font-semibold text-gray-700">Filter by Subject:</label>
-                    <select id="filterSubject" class="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500">
+            <div class="bg-white rounded-xl shadow-lg p-3 sm:p-4 mb-4 sm:mb-6 border border-orange-200">
+                <div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
+                    <label class="font-semibold text-gray-700 text-sm sm:text-base">Filter by Subject:</label>
+                    <select id="filterSubject" class="px-2 sm:px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500 text-sm sm:text-base">
                         <option value="">All Subjects</option>
                         <option value="Mathematics">Mathematics</option>
                         <option value="Physics">Physics</option>
@@ -163,20 +163,20 @@
                         <option value="Business">Business</option>
                         <option value="Other">Other</option>
                     </select>
-                    <input type="text" id="searchPosts" placeholder="Search questions..." class="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500 flex-1 min-w-64">
+                    <input type="text" id="searchPosts" placeholder="Search questions..." class="px-2 sm:px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500 flex-1 min-w-0 text-sm sm:text-base">
                 </div>
             </div>
 
             <!-- Posts Container -->
-            <div id="postsContainer" class="space-y-6">
+            <div id="postsContainer" class="space-y-4 sm:space-y-6">
                 <!-- Sample posts will be added here -->
             </div>
 
             <!-- No Posts Message -->
-            <div id="noPostsMessage" class="text-center py-12 hidden">
-                <div class="text-6xl mb-4">📚</div>
-                <h3 class="text-xl font-bold text-gray-600 mb-2">No study materials yet</h3>
-                <p class="text-gray-500">Be the first to share an answer and help your coursemates!</p>
+            <div id="noPostsMessage" class="text-center py-8 sm:py-12 hidden px-4">
+                <div class="text-4xl sm:text-6xl mb-3 sm:mb-4">📚</div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-600 mb-2">No study materials yet</h3>
+                <p class="text-gray-500 text-sm sm:text-base">Be the first to share an answer and help your coursemates!</p>
             </div>
         </div>
     </div>
@@ -395,8 +395,9 @@
                 // Add sample users
                 this.registerUser('Study Helper', 'Mathematics 101');
                 this.registerUser('Physics Pro', 'Physics 201');
+                this.registerUser('Chemistry Expert', 'Chemistry 301');
 
-                // Add sample posts
+                // Add sample posts from different users
                 this.createPost('Study Helper', 
                     'How to solve quadratic equations using the quadratic formula?',
                     'The quadratic formula is x = (-b ± √(b²-4ac)) / 2a. Here\'s a step-by-step approach:\n\n1. Identify coefficients a, b, and c\n2. Calculate the discriminant (b²-4ac)\n3. Apply the formula\n4. Simplify the result\n\nExample: For x² + 5x + 6 = 0\na=1, b=5, c=6\nDiscriminant = 25-24 = 1\nx = (-5 ± 1)/2 = -2 or -3',
@@ -409,11 +410,22 @@
                     'Physics'
                 );
 
-                // Add some likes to sample posts
-                this.toggleLike(1, 'Physics Pro');
-                this.toggleLike(2, 'Study Helper');
+                this.createPost('Chemistry Expert',
+                    'How to balance chemical equations step by step?',
+                    'Balancing chemical equations ensures the law of conservation of mass:\n\n1. Count atoms of each element on both sides\n2. Start with the most complex molecule\n3. Balance one element at a time\n4. Use coefficients, never change subscripts\n5. Check your work\n\nExample: H₂ + O₂ → H₂O\nBalanced: 2H₂ + O₂ → 2H₂O',
+                    'Chemistry'
+                );
 
-                console.log('✅ Sample data initialized');
+                // Add some cross-user likes to demonstrate sharing
+                this.toggleLike(1, 'Physics Pro');
+                this.toggleLike(1, 'Chemistry Expert');
+                this.toggleLike(2, 'Study Helper');
+                this.toggleLike(2, 'Chemistry Expert');
+                this.toggleLike(3, 'Study Helper');
+                this.toggleLike(3, 'Physics Pro');
+
+                console.log('✅ Sample data initialized with cross-user interactions');
+                console.log('📊 Posts created by different users are now shared globally');
             }
 
             // Server Status
@@ -540,6 +552,8 @@
             loginBtn.classList.remove('hidden');
             logoutBtn.classList.add('hidden');
             userWelcome.classList.add('hidden');
+            // Still show posts even when not logged in, but hide create post form
+            renderPostsForGuests();
         }
 
         function showForum() {
@@ -550,6 +564,51 @@
             userWelcome.classList.remove('hidden');
             userWelcome.textContent = `Welcome, ${currentUser.name}!`;
             renderPosts();
+        }
+
+        // Render posts for guests (without interaction capabilities)
+        function renderPostsForGuests() {
+            const stats = server.getStats();
+            
+            // Show a simplified view of posts for non-logged-in users
+            const postsResult = server.getPosts();
+            
+            if (postsResult.success && postsResult.posts.length > 0) {
+                // Create a simple preview section in welcome
+                const previewHtml = `
+                    <div class="mt-6 sm:mt-8">
+                        <h3 class="text-xl sm:text-2xl font-bold text-gray-800 mb-3 sm:mb-4 text-center px-2">Recent Study Materials</h3>
+                        <div class="bg-white rounded-xl shadow-lg p-4 sm:p-6 border border-orange-200">
+                            <div class="grid gap-3 sm:gap-4">
+                                ${postsResult.posts.slice(0, 3).map(post => `
+                                    <div class="border-l-4 border-orange-500 pl-3 sm:pl-4 py-2">
+                                        <h4 class="font-semibold text-gray-800 text-sm sm:text-base">${escapeHtml(post.title)}</h4>
+                                        <p class="text-xs sm:text-sm text-gray-600">by ${escapeHtml(post.author)} • ${escapeHtml(post.subject)}</p>
+                                        <p class="text-xs sm:text-sm text-gray-500 mt-1">${escapeHtml(post.content.substring(0, 100))}...</p>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <div class="text-center mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-gray-200">
+                                <p class="text-gray-600 mb-2 text-sm sm:text-base px-2">Join to see all ${stats.totalPosts} study materials and contribute your own!</p>
+                                <button onclick="document.getElementById('loginBtn').click()" class="bg-gradient-to-r from-orange-500 to-red-600 text-white px-3 py-2 sm:px-4 sm:py-2 rounded-lg hover:from-orange-600 hover:to-red-700 transition-colors text-sm sm:text-base">
+                                    Join Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                // Add preview to welcome section
+                const existingPreview = document.getElementById('postsPreview');
+                if (existingPreview) {
+                    existingPreview.innerHTML = previewHtml;
+                } else {
+                    const previewDiv = document.createElement('div');
+                    previewDiv.id = 'postsPreview';
+                    previewDiv.innerHTML = previewHtml;
+                    welcomeSection.appendChild(previewDiv);
+                }
+            }
         }
 
         // Create new post
@@ -619,43 +678,43 @@
             noPostsMessage.classList.add('hidden');
             
             postsContainer.innerHTML = filteredPosts.map(post => `
-                <div class="post-card bg-white rounded-xl shadow-lg p-6 border border-gray-200">
-                    <div class="flex items-start justify-between mb-4">
+                <div class="post-card bg-white rounded-xl shadow-lg p-4 sm:p-6 border border-gray-200">
+                    <div class="flex items-start justify-between mb-3 sm:mb-4">
                         <div class="flex-1">
-                            <h3 class="text-xl font-bold text-gray-800 mb-2">${escapeHtml(post.title)}</h3>
-                            <div class="flex items-center space-x-4 text-sm text-gray-600">
+                            <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-2 pr-2">${escapeHtml(post.title)}</h3>
+                            <div class="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-600">
                                 <span class="flex items-center">
-                                    <span class="w-2 h-2 bg-orange-500 rounded-full mr-2"></span>
+                                    <span class="w-2 h-2 bg-orange-500 rounded-full mr-1 sm:mr-2"></span>
                                     ${escapeHtml(post.author)}
                                 </span>
-                                <span>${escapeHtml(post.course)}</span>
+                                <span class="hidden sm:inline">${escapeHtml(post.course)}</span>
                                 <span class="bg-${getSubjectColor(post.subject)}-100 text-${getSubjectColor(post.subject)}-800 px-2 py-1 rounded-full text-xs font-semibold">
                                     ${escapeHtml(post.subject)}
                                 </span>
-                                <span>${formatDate(post.timestamp)}</span>
+                                <span class="text-xs">${formatDate(post.timestamp)}</span>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="mb-4">
-                        <p class="text-gray-700 whitespace-pre-wrap leading-relaxed">${escapeHtml(post.content)}</p>
+                    <div class="mb-3 sm:mb-4">
+                        <p class="text-gray-700 whitespace-pre-wrap leading-relaxed text-sm sm:text-base">${escapeHtml(post.content)}</p>
                     </div>
                     
                     ${post.image ? `
-                        <div class="mb-4">
+                        <div class="mb-3 sm:mb-4">
                             <img src="${post.image}" alt="Study material" class="max-w-full h-auto rounded-lg border border-gray-200 shadow-sm">
                         </div>
                     ` : ''}
                     
-                    <div class="flex items-center justify-between pt-4 border-t border-gray-200">
-                        <button onclick="toggleLike(${post.id})" class="flex items-center space-x-2 text-gray-600 hover:text-red-500 transition-colors">
-                            <span class="text-lg">${post.likedBy.includes(currentUser?.name) ? '❤️' : '🤍'}</span>
-                            <span class="font-semibold">${post.likes}</span>
-                            <span>Helpful</span>
+                    <div class="flex items-center justify-between pt-3 sm:pt-4 border-t border-gray-200">
+                        <button onclick="toggleLike(${post.id})" class="flex items-center space-x-1 sm:space-x-2 text-gray-600 hover:text-red-500 transition-colors">
+                            <span class="text-base sm:text-lg">${post.likedBy.includes(currentUser?.name) ? '❤️' : '🤍'}</span>
+                            <span class="font-semibold text-sm sm:text-base">${post.likes}</span>
+                            <span class="text-xs sm:text-sm">Helpful</span>
                         </button>
-                        <div class="flex items-center space-x-2 text-gray-500 text-sm">
+                        <div class="flex items-center space-x-1 sm:space-x-2 text-gray-500 text-xs sm:text-sm">
                             <span>📚</span>
-                            <span>Study Material</span>
+                            <span class="hidden sm:inline">Study Material</span>
                         </div>
                     </div>
                 </div>
@@ -712,5 +771,5 @@
         // Initialize the application
         init();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97b16479228747cf',t:'MTc1NzE5NzYzMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97b1c144e1d0641b',t:'MTc1NzIwMTQzNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
